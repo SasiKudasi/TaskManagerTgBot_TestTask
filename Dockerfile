@@ -1,9 +1,8 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
+# Используем базовый образ для выполнения
 FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
-USER app
 WORKDIR /app
 
+# Используем базовый образ для сборки
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
@@ -13,10 +12,12 @@ COPY . .
 WORKDIR "/src/."
 RUN dotnet build "./TaskManagerTgBot.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+# Сборка и публикация
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./TaskManagerTgBot.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# Финальный образ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

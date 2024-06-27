@@ -15,8 +15,8 @@ namespace TaskManagerTgBot
 
         static void Main(string[] args)
         {
-            var token = System.IO.File.ReadAllText("../../../token.txt");
-            var bot = new TelegramBotClient(token);
+           
+            var bot = new TelegramBotClient("6968966018:AAFHGeMDIXZlUJOHnya9eZzHbXylxJ3Z_Ms");
 
             var receiver = new ReceiverOptions
             {

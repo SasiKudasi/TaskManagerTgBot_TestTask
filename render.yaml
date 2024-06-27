@@ -1,6 +1,9 @@
+# Exported from Render on 2024-06-27T15:43:51Z
 services:
-  - type: worker
-    name: my-telegram-bot
-    plan: free
-    dockerfilePath: ./Dockerfile    
-    runtime: docker
+- type: web
+  name: TaskManagerTgBot_TestTask
+  runtime: static
+  repo: https://github.com/SasiKudasi/TaskManagerTgBot_TestTask
+  buildCommand: dotnet publish -c Release -o  out
+  staticPublishPath: ./
+version: "1"

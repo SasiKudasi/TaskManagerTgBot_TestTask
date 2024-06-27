@@ -4,7 +4,9 @@ meta:
   toolchain:
     name: dotnet
     version: 8.0
-build: {}
+build:
+  image: TaskManagerTgBot.exe
 run:
   persistenceMount: /data
   containerPort: 80
+  buildFileName: TaskManagerTgBot.exe

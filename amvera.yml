@@ -6,7 +6,6 @@ meta:
     version: latest
 build:
   dockerfile: Dockerfile
-  skip: true
 run:
   persistenceMount: /data
   containerPort: 80

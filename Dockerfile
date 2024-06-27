@@ -1,19 +1,23 @@
-# Используем базовый образ для сборки
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
+USER app
+WORKDIR /app
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
-
-# Копируем и восстанавливаем зависимости
-COPY *.csproj .
-RUN dotnet restore
-
-# Копируем остальные файлы и собираем проект
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["TaskManagerTgBot.csproj", "."]
+RUN dotnet restore "./TaskManagerTgBot.csproj"
 COPY . .
-RUN dotnet publish -c Release -o out
+WORKDIR "/src/."
+RUN dotnet build "./TaskManagerTgBot.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Используем базовый образ для выполнения
-FROM mcr.microsoft.com/dotnet/runtime:8.0
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./TaskManagerTgBot.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app/out .
-
-# Запускаем приложение
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TaskManagerTgBot.dll"]

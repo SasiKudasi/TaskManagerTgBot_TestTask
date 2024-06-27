@@ -1,9 +1,0 @@
-# Exported from Render on 2024-06-27T15:43:51Z
-services:
-- type: worker
-  name: TaskManagerTgBot_TestTask
-  runtime: docker
-  repo: https://github.com/SasiKudasi/TaskManagerTgBot_TestTask
-  dockerfilePath: ./Dockerfile  
-version: "1"
-

@@ -1,9 +1,8 @@
 # Exported from Render on 2024-06-27T15:43:51Z
 services:
-- type: web
+- type: worker
   name: TaskManagerTgBot_TestTask
-  runtime: static
+  runtime: docker
   repo: https://github.com/SasiKudasi/TaskManagerTgBot_TestTask
-  buildCommand: dotnet publish -c Release -o  out
-  staticPublishPath: ./
+  dockerfilePath: ./Dockerfile  
 version: "1"

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -14,8 +15,8 @@ namespace TaskManagerTgBot
 
         static void Main(string[] args)
         {
-            // var token = System.IO.File.ReadAllText("token.txt");
-            var bot = new TelegramBotClient("6968966018:AAFHGeMDIXZlUJOHnya9eZzHbXylxJ3Z_Ms");
+            var token = System.IO.File.ReadAllText("../../../token.txt");
+            var bot = new TelegramBotClient(token);
 
             var receiver = new ReceiverOptions
             {
@@ -84,6 +85,12 @@ namespace TaskManagerTgBot
 
         private static async Task ShowAllTasks(ITelegramBotClient client, CancellationToken token)
         {
+            if (_dictionary[_user].Count == 0)
+            {
+                await client.SendTextMessageAsync(_user.Id,
+                    "You have no tasks",
+                    cancellationToken: token);
+            }
             foreach (var task in _dictionary[_user])
             {
                 await client.SendTextMessageAsync(_user.Id,
@@ -117,18 +124,17 @@ namespace TaskManagerTgBot
             else
             {
                 await client.SendTextMessageAsync(_user.Id,
-                   $"Enter a task /add <Task Description>" ,
+                   $"Enter a task /add <Task Description>",
                    cancellationToken: token);
             }
-
         }
 
         private static async Task SendMenu(ITelegramBotClient client, CancellationToken token)
         {
             await client.SendTextMessageAsync(_user.Id,
-                "Hello!\nTo add a task - write /add\n" +
+                "Hello!\nTo add a task - write /add <Task Description> \n" +
                 "To show Your task list - write /list\n" +
-                "To change the task status - write /done",
+                "To change the task status - write /done <Task Number>",
                 cancellationToken: token);
         }
 
@@ -138,7 +144,5 @@ namespace TaskManagerTgBot
             Console.WriteLine($"{exception.Message}");
             return Task.CompletedTask;
         }
-
-
     }
 }

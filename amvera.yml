@@ -8,6 +8,6 @@ build:
   image: mcr.microsoft.com/dotnet/sdk:8.0
 run:
   image: mcr.microsoft.com/dotnet/sdk:8.0
-  buildFileName: /bin/TaskManagerTgBot
+  buildFileName: /bin/TaskManagerTgBot.exe
   persistenceMount: /data
   containerPort: 80

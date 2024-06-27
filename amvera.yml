@@ -1,3 +1,4 @@
+---
 meta:
   environment: csharp
   toolchain:
@@ -7,6 +8,6 @@ build:
   image: mcr.microsoft.com/dotnet/sdk:8.0
 run:
   image: mcr.microsoft.com/dotnet/sdk:8.0
-  buildFileName: TaskManagerTgBot
+  buildFileName: /bin/TaskManagerTgBot
   persistenceMount: /data
   containerPort: 80

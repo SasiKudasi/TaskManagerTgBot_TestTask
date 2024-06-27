@@ -1,0 +1,6 @@
+services:
+  - type: worker
+    name: my-telegram-bot
+    plan: free
+    dockerfilePath: ./Dockerfile    
+    runtime: docker

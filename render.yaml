@@ -6,3 +6,4 @@ services:
   repo: https://github.com/SasiKudasi/TaskManagerTgBot_TestTask
   dockerfilePath: ./Dockerfile  
 version: "1"
+

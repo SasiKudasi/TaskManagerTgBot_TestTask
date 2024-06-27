@@ -9,4 +9,4 @@ build:
 run:
   persistenceMount: /data
   containerPort: 80
-  buildFileName: TaskManagerTgBot.exe
+  buildFileName: ./
